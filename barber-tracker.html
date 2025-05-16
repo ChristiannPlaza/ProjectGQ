@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Barber Tracker</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="barber-tracker.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="dashboard-header">
+    <div class="logo-section">
+      <img src="src/gqlogo.jpg" alt="GQ Logo" class="side-logo" />
+      <span class="brand-title">BARBER SHOP</span>
+    </div>
+    <nav class="dashboard-nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="barber-tracker.html">Barber Tracker</a>
+      <a href="services.html">Services</a>
+      <a href="discounts.html">Discounts</a>
+      <a href="records.html">Records</a>
+    </nav>
+    <div class="profile-icon">
+      <a href="profile.html"><i class="fa-regular fa-user"></i></a>
+    </div>
+  </header>
+  <main class="dashboard-main">
+    <h1 class="dashboard-title" style="text-align:left;">BARBER TRACKER</h1>
+    <div class="barber-table-container">
+      <div class="button-container">
+        <button id="addBarberBtn">Add Barber</button>
+        <button id="removeBarberBtn">Remove Barber</button>
+      </div>
+      <table class="barber-table" id="barberTable">
+        <thead>
+          <tr>
+            <th>Barber</th>
+            <th>Status</th>
+            <th>Current Customer</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal for Editing -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody"></div>
+      <div class="modal-actions">
+        <button id="saveBtn">Save</button>
+        <button id="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Removing -->
+  <div class="modal" id="removeModal">
+    <div class="modal-content">
+      <h2>Remove Barber</h2>
+      <div id="removeBody">
+        <select id="removeSelect" style="width: 100%; padding: 0.5rem;">
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button id="confirmRemoveBtn">Remove</button>
+        <button id="cancelRemoveBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="barber-tracker.js"></script>
+</body>
+</html>

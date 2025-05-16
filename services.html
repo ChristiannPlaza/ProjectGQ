@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Services</title>
+  <link rel="stylesheet" href="services.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="dashboard-header">
+    <div class="logo-section">
+      <img src="src/gqlogo.jpg" alt="GQ Logo" class="side-logo" />
+      <span class="brand-title">BARBER SHOP</span>
+    </div>
+    <nav class="dashboard-nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="barber-tracker.html">Barber Tracker</a>
+      <a href="services.html">Services</a>
+      <a href="discounts.html">Discounts</a>
+      <a href="records.html">Records</a>
+    </nav>
+    <div class="profile-icon">
+      <a href="profile.html"><i class="fa-regular fa-user"></i></a>
+    </div>
+  </header>
+  <main class="dashboard-main">
+    <h1 class="dashboard-title">SERVICES</h1>
+    <div class="services-table-container">
+      <div class="service-btns">
+        <button id="addServiceBtn">Add Service</button>
+        <button id="deleteServiceBtn">Delete Service</button>
+      </div>
+      <table class="services-table" id="servicesTable">
+        <thead>
+          <tr>
+            <th>Services</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="modal-root"></div>
+  </main>
+  <script>
+    let services = [];
+    let editIndex = null;
+
+    document.getElementById('addServiceBtn').addEventListener('click', () => openServiceModal());
+    document.getElementById('deleteServiceBtn').addEventListener('click', openDeleteModal);
+
+    function openServiceModal(index = null) {
+      editIndex = index;
+      const modalRoot = document.getElementById('modal-root');
+      const service = index !== null ? services[index] : { name: '', price: '' };
+      modalRoot.innerHTML = `
+        <div class='modal-backdrop'>
+          <form class='modal'>
+            <label>Service Name
+              <input type='text' id='serviceName' value='${service.name || ''}' required />
+            </label>
+            <label>Price
+              <input type='number' id='servicePrice' min='0' value='${service.price || ''}' required />
+            </label>
+            <div class='modal-actions'>
+              <button type='button' id='cancelModalBtn'>Cancel</button>
+              <button type='submit' id='saveModalBtn'>${index !== null ? 'Save' : 'Add'}</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.querySelector('.modal-backdrop').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+      document.getElementById('cancelModalBtn').addEventListener('click', closeModal);
+      document.querySelector('.modal').onsubmit = saveService;
+    }
+
+    function openDeleteModal() {
+      if (services.length === 0) return;
+      const modalRoot = document.getElementById('modal-root');
+      let options = '';
+      services.forEach((s, i) => {
+        options += `<option value='${i}'>${s.name} (PHP ${s.price})</option>`;
+      });
+      modalRoot.innerHTML = `
+        <div class='modal-backdrop'>
+          <form class='modal'>
+            <label>Select a service to delete
+              <select id='deleteServiceSelect'>${options}</select>
+            </label>
+            <div class='modal-actions'>
+              <button type='button' id='cancelDeleteBtn'>Cancel</button>
+              <button type='submit' id='confirmDeleteBtn'>Delete</button>
+            </div>
+          </form>
+        </div>
+      `;
+      document.querySelector('.modal-backdrop').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+      document.getElementById('cancelDeleteBtn').addEventListener('click', closeModal);
+      document.querySelector('.modal').onsubmit = function(e) {
+        e.preventDefault();
+        const idx = parseInt(document.getElementById('deleteServiceSelect').value);
+        if (!isNaN(idx)) services.splice(idx, 1);
+        closeModal();
+        renderServices();
+      };
+    }
+
+    function closeModal() {
+      document.getElementById('modal-root').innerHTML = '';
+      editIndex = null;
+    }
+
+    function saveService(e) {
+      e.preventDefault();
+      const name = document.getElementById('serviceName').value.trim();
+      const price = parseInt(document.getElementById('servicePrice').value) || 0;
+      if (!name || price === 0) return;
+      const service = { name, price };
+      if (editIndex !== null) {
+        services[editIndex] = service;
+      } else {
+        services.push(service);
+      }
+      closeModal();
+      renderServices();
+    }
+
+    function renderServices() {
+      const tbody = document.querySelector('#servicesTable tbody');
+      tbody.innerHTML = '';
+      for (let i = 0; i < services.length; i++) {
+        const s = services[i];
+        const tr = document.createElement('tr');
+        const tdName = document.createElement('td');
+        tdName.textContent = s.name;
+        const tdPrice = document.createElement('td');
+        tdPrice.textContent = 'PHP ' + s.price;
+        const tdEdit = document.createElement('td');
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => openServiceModal(i));
+        tdEdit.appendChild(editBtn);
+        tr.appendChild(tdName);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdEdit);
+        tbody.appendChild(tr);
+      }
+      for (let i = services.length; i < 6; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td></td><td></td><td></td>';
+        tbody.appendChild(tr);
+      }
+    }
+    renderServices();
+  </script>
+</body>
+</html> 

@@ -1,0 +1,122 @@
+.barber-table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#addBarberBtn {
+  padding: 0.5rem 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#addBarberBtn:hover {
+  background-color: #45a049;
+}
+
+#removeBarberBtn {
+  padding: 0.5rem 1rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#removeBarberBtn:hover {
+  background-color: #c0392b;
+}
+
+.barber-table {
+  border-collapse: collapse;
+  min-width: 800px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.barber-table th {
+  background: #944c26;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 1px solid #944c26;
+}
+
+.barber-table td {
+  border: 1px solid #b97b4a;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.status-available {
+  color: green;
+  font-weight: bold;
+}
+
+.status-break {
+  color: red;
+  font-weight: bold;
+}
+
+.status-service {
+  color: orange;
+  font-weight: bold;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 8px;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-actions #confirmRemoveBtn {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.modal-actions #cancelRemoveBtn {
+  background: #95a5a6;
+  color: #fff;
+}
